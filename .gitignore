@@ -1,2 +1,4 @@
-geojson
+*.geojson
+*.txt
+!geojson/bbb/*.geojson
 node_modules
