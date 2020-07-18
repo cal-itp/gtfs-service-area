@@ -2,16 +2,18 @@ version: "3"
 
 services:
   dev:
-    build: .
+    image: node:12
     command: sleep infinity
+    working_dir: /usr/src/gtfs-service-area
     volumes:
       - .:/usr/src/gtfs-service-area
     links:
       - mongo
 
-  gtfs-service-area:
-    build: .
-    command: npm start
+  pipeline:
+    image: node:12
+    command: npm restart
+    working_dir: /usr/src/gtfs-service-area
     volumes:
       - .:/usr/src/gtfs-service-area
     links:

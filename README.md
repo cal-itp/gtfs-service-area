@@ -4,10 +4,11 @@ Compute a transit service area from static [GTFS](https://gtfs.org/reference/sta
 
 ## Example
 
-The [`geojson`](geojson/bbb/) directory contains sample output using GTFS data from the [Big Blue Bus](http://gtfs.bigbluebus.com).
+The [`example`](example/) directory contains sample output using GTFS data from the [Big Blue Bus](http://gtfs.bigbluebus.com).
 
-* [`bbb-routes.geojson`](geojson/bbb/bbb-routes.geojson) is the combined route data.
-* [`bbb-envelope.geojson`](geojson/bbb/bbb-envelope.geojson) is the computed service area.
+* [`bbb-envelope.geojson`](example/bbb-envelope.geojson) is the computed service area as a bounding box.
+* [`bbb-routes.geojson`](example/bbb-routes.geojson) is the combined route data.
+
 
 ## Configuration and running
 
@@ -30,7 +31,7 @@ Edit the collection of `agencies` in [`config.json`](config.json):
 ### Option 1: Use [`docker-compose`](https://docs.docker.com/compose/)
 
 ````bash
-docker-compose run gtfs-service-area
+docker-compose run pipeline
 ````
 
 ### Option 2: Use [`npm`](https://www.npmjs.com/)
