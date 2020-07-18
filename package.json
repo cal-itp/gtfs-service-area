@@ -7,6 +7,7 @@
     "start": "node app.js"
   },
   "author": "Kegan Maher",
+  "repository": "git://github.com/thekaveman/gtfs-service-area",
   "license": "MIT",
   "dependencies": {
     "gtfs-to-geojson": "0.5.4",
