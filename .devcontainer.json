@@ -1,0 +1,23 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/javascript-node-mongo
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+    "name": "gtfs-service-area",
+    "dockerComposeFile": "./docker-compose.yml",
+    "service": "dev",
+    "runServices": ["dev"],
+    "workspaceFolder": "/usr/src/gtfs-service-area",
+    "postAttachCommand": "npm install",
+    "shutdownAction": "stopCompose",
+
+    // Set *default* container specific settings.json values on container create.
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+        "dbaeumer.vscode-eslint",
+        "randomfractalsinc.geo-data-viewer"
+    ]
+}

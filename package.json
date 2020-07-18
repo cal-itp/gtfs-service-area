@@ -1,0 +1,15 @@
+{
+  "name": "gtfs-service-area",
+  "version": "1.0.0",
+  "description": "Compute a transit service area from static GTFS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Kegan Maher",
+  "license": "MIT",
+  "dependencies": {
+    "gtfs-to-geojson": "0.5.4",
+    "geojson-bounds": "1.0.2"
+  }
+}
