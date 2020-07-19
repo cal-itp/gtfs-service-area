@@ -9,5 +9,5 @@ module.exports = (agency, routes, outputDir) => {
     const envelope = bboxPoly(bbox(routes));
 
     fs.writeFileSync(`${outputDir}/${agency}-envelope.geojson`, JSON.stringify(envelope));
-    console.log(`${agency}-envelope.geojson created`);
+    console.log(`${agency}: envelope created from routes`);
 };

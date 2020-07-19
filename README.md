@@ -6,6 +6,7 @@ Compute a transit service area from static [GTFS](https://gtfs.org/reference/sta
 
 The [`example`](example/) directory contains sample output using GTFS data from the [Big Blue Bus](http://gtfs.bigbluebus.com).
 
+* [`bbb-convex.geojson`](example/bbb-convex.geojson) is the computed service area as a convex hull.
 * [`bbb-envelope.geojson`](example/bbb-envelope.geojson) is the computed service area as a bounding box.
 * [`bbb-routes.geojson`](example/bbb-routes.geojson) is the combined route data.
 
