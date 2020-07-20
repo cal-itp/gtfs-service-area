@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   dev:
@@ -7,7 +7,7 @@ services:
     working_dir: /usr/src/gtfs-service-area
     volumes:
       - .:/usr/src/gtfs-service-area
-    links:
+    depends_on:
       - mongo
 
   pipeline:
@@ -16,7 +16,7 @@ services:
     working_dir: /usr/src/gtfs-service-area
     volumes:
       - .:/usr/src/gtfs-service-area
-    links:
+    depends_on:
       - mongo
 
   mongo:
