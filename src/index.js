@@ -6,9 +6,9 @@ const gtfsToGeoJSON = require("gtfs-to-geojson");
 const mongoose = require("mongoose");
 
 const agencies = require("./agency");
-const config = require("../config.json");
-//ensure we produce a single output geojson for all agency routes
-config.outputType = "agency";
+const loadConfig = require("./config");
+
+const config = loadConfig();
 
 // Mongo used by gtfsToGeoJSON
 // GTFS files read and loaded, and queried back out to produce GeoJSON

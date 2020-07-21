@@ -1,0 +1,17 @@
+{
+  "agencies": [
+    {
+      "agency_key": "bbb",
+      "url": "http://gtfs.bigbluebus.com/current.zip"
+    }
+  ],
+  "mongoUrl": "mongodb://mongo:27017",
+  "serviceAreas": [
+    "envelope",
+    "convex"
+  ],
+  "coordinatePrecision": 5,
+  "outputType": "agency",
+  "includeStops": false,
+  "zipOutput": false
+}
