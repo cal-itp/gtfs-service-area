@@ -2,18 +2,19 @@
 
 Compute a transit service area from static [GTFS](https://gtfs.org/reference/static).
 
-## Example
+## Examples
 
-The [`example`](example/) directory contains sample output using GTFS data from the [Big Blue Bus](http://gtfs.bigbluebus.com).
+The [`example`](example/) directory contains sample output using GTFS data from [Big Blue Bus][bbb] and [Monterey-Salinas Transit][mst].
 
-* [`bbb-convex.geojson`](example/bbb-convex.geojson) is the computed service area as a convex hull.
-* [`bbb-envelope.geojson`](example/bbb-envelope.geojson) is the computed service area as a bounding box.
-* [`bbb-routes.geojson`](example/bbb-routes.geojson) is the combined route data.
+## Getting Started
 
+Create a configuration file from the sample:
 
-## Configuration and running
+```bash
+cp config.sample.json config.json
+```
 
-Edit the collection of `agencies` in [`config.json`](config.json):
+Edit the collection of `agencies` as needed:
 
 ```json
 "agencies": [
@@ -57,9 +58,16 @@ Check the [`geojson`](geojson/) directory for output:
 .
 ├── geojson
 │   ├── agency1
-│   │   ├── agency1-envelope.geojson  <-- Computed envelope
-│   │   └── agency1-routes.geojson    <-- GTFS route lines
+│   │   ├── agency1-routes.geojson  <-- GTFS route lines
+│   │   ├── agency1-stops.geojson   <-- GTFS route stops
+│   │   ├── agency1-service-area-1.geojson   <-- Computed service area(s)
+│   │   └── agency1-service-area-2.geojson
 │   ├── agency2
-│   │   ├── agency2-envelope.geojson
-│   │   └── agency2-routes.geojson
+│   │   ├── agency2-routes.geojson  <-- GTFS route lines
+│   │   ├── agency2-stops.geojson   <-- GTFS route stops
+│   │   ├── agency2-service-area-1.geojson   <-- Computed service area(s)
+│   │   └── agency2-service-area-2.geojson
 ```
+
+[bbb]: http://gtfs.bigbluebus.com
+[mst]: https://mst.org/about-mst/developer-resources/
