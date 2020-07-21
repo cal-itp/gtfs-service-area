@@ -1,17 +1,20 @@
 "use strict";
 
-const fs = require("fs");
+const output = require("./output");
+const routes = require("./routes");
 
-const processRoutes = require("./process-routes");
-const envelope = require("./envelope");
-const convex = require("./convex");
+const envelope = require("./service-area/envelope");
+const convex = require("./service-area/convex");
 
-module.exports = (agency) => {
-    const agency_key = agency.agency_key;
-    const outputDir = `./geojson/${agency_key}`;
+/**
+ * Generate service area GeoJSON layers for the agency.
+ * @param {Object} agency An entry from the `agencies` array in `config.json`.
+ * @param {Object} config The parsed `config.json` object.
+ */
+module.exports = (agency, config) => {
+    agency.output_dir = output.directory(agency);
+    agency.routes = routes.load(agency);
 
-    const routes = processRoutes(agency_key, outputDir);
-
-    envelope(agency_key, routes, outputDir);
-    convex(agency_key, routes, outputDir);
+    envelope(agency);
+    convex(agency);
 };

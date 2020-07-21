@@ -5,9 +5,9 @@
         "url": "http://gtfs.bigbluebus.com/current.zip"
       }
     ],
+    "mongoUrl": "mongodb://mongo:27017",
     "outputType": "agency",
     "coordinatePrecision": 5,
     "includeStops": false,
-    "zipOutput": false,
-    "mongoUrl": "mongodb://mongo:27017"
+    "zipOutput": false
 }
