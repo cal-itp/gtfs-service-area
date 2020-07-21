@@ -3,12 +3,13 @@
 const convex = require("@turf/convex").default;
 const turf = require("@turf/helpers");
 
+const { Agency } = require("../agency");
 const { endpoint } = require("../routes");
 const output = require("../output");
 
 /**
  * Create a convex hull service area using the endpoints of each route line.
- * @param {Object} agency An entry from the `agencies` array in `config.json`.
+ * @param {Agency} agency An Agency object.
  */
 module.exports = (agency) => {
     let points = [];
@@ -23,5 +24,5 @@ module.exports = (agency) => {
 
     output.data(agency, "convex", hull);
 
-    console.log(`${agency.agency_key}: convex created from route line endpoints`);
+    console.log(`${agency.key}: convex created from route line endpoints`);
 };

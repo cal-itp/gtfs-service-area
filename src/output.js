@@ -1,23 +1,26 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 
 const turf = require("@turf/helpers");
 
-/**
- * Return the path to the output directory for this agency.
- * @param {String} agency An entry from the `agencies` array in `config.json`.
- */
-exports.directory = (agency) => `./geojson/${agency.agency_key}`;
+const { Agency } = require("./agency");
 
 /**
- * Serialize service area data to a file.
- * @param {String} agency                          An entry from the `agencies` array in `config.json`.
- * @param {String} serviceAreaType                 The type of the service area.
- * @param {turf.FeatureCollection} serviceAreaData The GeoJSON data of the service area.
+ * Return the path to the data output directory for this agency.
+ * @param {Agency} agency An Agency object.
  */
-exports.data = (agency, serviceAreaType, serviceAreaData) => {
-    const filename = `${agency.output_dir}/${agency.agency_key}-${serviceAreaType}.geojson`;
+exports.directory = (agency) => `./geojson/${agency.key}`;
 
-    fs.writeFileSync(filename, JSON.stringify(serviceAreaData));
+/**
+ * Serialize service area data to a file in the data output directory.
+ * @param {Agency} agency               An Agency object.
+ * @param {String} type                 The type of the service area, used as a file suffix.
+ * @param {turf.FeatureCollection} data The GeoJSON data of the service area.
+ */
+exports.data = (agency, type, data) => {
+    const filename = path.join(agency.directory, `${agency.key}-${type}.geojson`);
+
+    fs.writeFileSync(filename, JSON.stringify(data));
 };

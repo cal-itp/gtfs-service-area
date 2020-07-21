@@ -5,7 +5,7 @@ const { exit } = require("process");
 const gtfsToGeoJSON = require("gtfs-to-geojson");
 const mongoose = require("mongoose");
 
-const processAgency = require("./process-agency");
+const agencies = require("./agency");
 const config = require("../config.json");
 //ensure we produce a single output geojson for all agency routes
 config.outputType = "agency";
@@ -17,7 +17,8 @@ mongoose.connect(config.mongoUrl, { useNewUrlParser: true, useUnifiedTopology: t
 // Run gtfsToGeoJSON, which generates the output directory and the agency file
 gtfsToGeoJSON(config).then(() => {
     // Continue processing each agency
-    config.agencies.forEach(processAgency);
+    config.agencies = agencies.load(config);
+    config.agencies.forEach((agency) => agency.computeServiceArea());
     exit(0);
 })
 .catch(err => {

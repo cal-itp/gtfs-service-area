@@ -6,6 +6,10 @@
       }
     ],
     "mongoUrl": "mongodb://mongo:27017",
+    "serviceAreas": [
+      "envelope",
+      "convex"
+    ],
     "outputType": "agency",
     "coordinatePrecision": 5,
     "includeStops": false,

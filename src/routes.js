@@ -1,21 +1,24 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 
 const along = require("@turf/along").default;
 const length = require("@turf/length").default;
 const turf = require("@turf/helpers");
 
+const { Agency } = require("./agency");
+
 /**
  * Load route data for the agency.
- * @param {Object} agency An entry from the `agencies` array in `config.json`.
+ * @param {Agency} agency An Agency object.
  * @returns {turf.FeatureCollection} The GeoJSON route lines.
  */
 exports.load = (agency) => {
-    const agencyFile = `${agency.output_dir}/${agency.agency_key}.geojson`;
-    const routesFile = `${agency.output_dir}/${agency.agency_key}-routes.geojson`;
+    const agencyFile = path.join(agency.directory, agency.key + ".geojson");
+    const routesFile = path.join(agency.directory, agency.key + "-routes.geojson");
 
-    if (fs.existsSync(agencyFile)) {
+    if (fs.existsSync(agencyFile) && !fs.existsSync(routesFile)) {
         fs.renameSync(agencyFile, routesFile);
     }
 
