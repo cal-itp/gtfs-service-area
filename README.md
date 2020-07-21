@@ -1,10 +1,10 @@
 # gtfs-service-area
 
-Compute a transit service area from static [GTFS](https://gtfs.org/reference/static).
+Compute a transit service area from static [GTFS](https://gtfs.org/reference/static). Results are output as single-layer `.geojson` files.
 
 ## Examples
 
-The [`example`](example/) directory contains sample output using GTFS data from [Big Blue Bus][bbb] and [Monterey-Salinas Transit][mst].
+The [`example`](example/) directory contains output using GTFS data from [Big Blue Bus][bbb] and [Monterey-Salinas Transit][mst], with settings from the [sample config file](config.sample.json) in this repository.
 
 ## Getting Started
 
@@ -25,8 +25,7 @@ Edit the collection of `agencies` as needed:
     {
         "agency_key": "agency2",
         "url": "https://www.agency2.com/gtfs.zip"
-    },
-    // ... etc.
+    }
 ],
 ```
 
@@ -44,7 +43,7 @@ docker-compose run pipeline
     npm install
     ```
 
-1. Edit `mongoUrl` in [`config.json`](config.json) with the URL of a MongoDB server.
+1. Edit `mongoUrl` in [`config.json`](config.json) with the URL of a [MongoDB](https://www.mongodb.com/) server.
 
 1. Run the generator:
 
@@ -52,7 +51,7 @@ docker-compose run pipeline
     npm start
     ```
 
-Check the [`geojson`](geojson/) directory for output:
+Check the `geojson` directory for output:
 
 ```bash
 .
@@ -69,5 +68,108 @@ Check the [`geojson`](geojson/) directory for output:
 │   │   └── agency2-service-area-2.geojson
 ```
 
+## Service Areas
+
+This tool calculates service area using a number of different methods:
+
+| Type       | Description                                    |
+|------------|------------------------------------------------|
+| `envelope` | [Bounding box][bbox] around routes lines       |
+| `convex`   | [Convex hull][convex] around route endpoints   |
+| `stops`    | [Buffer][buffer] around stops                  |
+
+The configuration file allows for specifying which service area calculation(s) are used, per-agency and/or on the run as a whole, with the `serviceAreas` key:
+
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "agency1",
+      "url": "https://www.agency1.com/gtfs.zip",
+    },
+    {
+      "agency_key": "agency2",
+      "url": "https://www.agency2.com/gtfs.zip",
+      "serviceAreas": [
+        "stops"
+      ]
+    }
+  ],
+  "serviceAreas": [
+    "envelope",
+    "convex",
+    "stops"
+  ]
+}
+```
+
+In the above example:
+
+* `agency1`: all 3 service area calculations from the top-level `serviceAreas` will run as no override was specified.
+* `agency2`: the top-level `serviceAreas` have been overridden and only the `stops` calculation will run.
+
+### Stop Buffers
+
+For the `stops` calculation, an additional configuration key `bufferRadiusMeters` can be specified, either at the top-level or per-agency, to control the radius of buffers (in meters):
+
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "agency1",
+      "url": "https://www.agency1.com/gtfs.zip",
+      "serviceAreas": [
+        "stops"
+      ]
+    },
+    {
+      "agency_key": "agency2",
+      "url": "https://www.agency2.com/gtfs.zip",
+      "serviceAreas": [
+        "stops"
+      ],
+      "bufferSizeMeters": 750
+    }
+  ],
+  "bufferSizeMeters": 400
+}
+```
+
+In the above example:
+
+* `agency1`: calculate a 400 meter buffer around stops, using the top-level `bufferSizeMeters`.
+* `agency2`: calculate a 750 meter buffer around stops, using the override `bufferSizeMeters`.
+
+### Caching GTFS Data
+
+After a given agency's GTFS data has been been processed once, it is available for subsequent runs (e.g. adjusting parameters) without having to download and process again.
+
+Add the `skipImport` flag to your configuration file (*note* this flag is only available at the top-level and applies to all `agencies`):
+
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "agency1",
+      "url": "https://www.agency1.com/gtfs.zip",
+    },
+    {
+      "agency_key": "agency2",
+      "url": "https://www.agency2.com/gtfs.zip",
+    }
+  ],
+  "skipImport": true
+}
+```
+
+## Additional Configuration
+
+The configuration data is passed through to [`gtfs-to-geojson`](https://github.com/BlinkTagInc/gtfs-to-geojson), and you may use any of the [supported options](https://github.com/BlinkTagInc/gtfs-to-geojson#configuration).
+
+*Note that this project may override some options as necessary for calculating service areas.*
+
 [bbb]: http://gtfs.bigbluebus.com
+[bbox]: http://wiki.gis.com/wiki/index.php/Minimum_bounding_rectangle
+[buffer]: http://wiki.gis.com/wiki/index.php/Buffer_(GIS)
+[convex]: http://wiki.gis.com/wiki/index.php/Convex_hull
 [mst]: https://mst.org/about-mst/developer-resources/
