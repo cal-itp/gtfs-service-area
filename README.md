@@ -72,11 +72,12 @@ Check the `geojson` directory for output:
 
 This tool calculates service area using a number of different methods:
 
-| Type       | Description                                    |
-|------------|------------------------------------------------|
-| `envelope` | [Bounding box][bbox] around routes lines       |
-| `convex`   | [Convex hull][convex] around route endpoints   |
-| `stops`    | [Buffer][buffer] around stops                  |
+| Type              | Description                                  |
+|-------------------|----------------------------------------------|
+| `envelope`        | [Bounding box][bbox] around routes lines     |
+| `convex`          | [Convex hull][convex] around route endpoints |
+| `stops`           | [Buffer][buffer] around stops                |
+| `stops-dissolved` | [Dissolve][dissolve] the buffer around stops |
 
 The configuration file allows for specifying which service area calculation(s) are used, per-agency and/or on the run as a whole, with the `serviceAreas` key:
 
@@ -98,19 +99,20 @@ The configuration file allows for specifying which service area calculation(s) a
   "serviceAreas": [
     "envelope",
     "convex",
-    "stops"
+    "stops",
+    "stops-dissolved"
   ]
 }
 ```
 
 In the above example:
 
-* `agency1`: all 3 service area calculations from the top-level `serviceAreas` will run as no override was specified.
+* `agency1`: all 4 service area calculations from the top-level `serviceAreas` will run as no override was specified.
 * `agency2`: the top-level `serviceAreas` have been overridden and only the `stops` calculation will run.
 
 ### Stop Buffers
 
-For the `stops` calculation, an additional configuration key `bufferRadiusMeters` can be specified, either at the top-level or per-agency, to control the radius of buffers (in meters):
+For the `stops` and `stops-dissolved` calculation, an additional configuration key `bufferRadiusMeters` can be specified, either at the top-level or per-agency, to control the radius of buffers (in meters):
 
 ```json
 {
@@ -126,7 +128,7 @@ For the `stops` calculation, an additional configuration key `bufferRadiusMeters
       "agency_key": "agency2",
       "url": "https://www.agency2.com/gtfs.zip",
       "serviceAreas": [
-        "stops"
+        "stops-dissolved"
       ],
       "bufferSizeMeters": 750
     }
@@ -172,4 +174,5 @@ The configuration data is passed through to [`gtfs-to-geojson`](https://github.c
 [bbox]: http://wiki.gis.com/wiki/index.php/Minimum_bounding_rectangle
 [buffer]: http://wiki.gis.com/wiki/index.php/Buffer_(GIS)
 [convex]: http://wiki.gis.com/wiki/index.php/Convex_hull
+[dissolve]: http://wiki.gis.com/wiki/index.php/Dissolve
 [mst]: https://mst.org/about-mst/developer-resources/
