@@ -2,16 +2,27 @@
   "agencies": [
     {
       "agency_key": "bbb",
-      "url": "http://gtfs.bigbluebus.com/current.zip"
+      "url": "http://gtfs.bigbluebus.com/current.zip",
+      "bufferRadiusMeters": 500
+    },
+    {
+      "agency_key": "mst",
+      "url": "https://www.mst.org/google/google_transit.zip",
+      "serviceAreas": [
+        "stops"
+      ],
+      "bufferRadiusMeters": 1000
     }
   ],
   "mongoUrl": "mongodb://mongo:27017",
   "serviceAreas": [
     "envelope",
-    "convex"
+    "convex",
+    "stops"
   ],
+  "bufferRadiusMeters": 400,
   "coordinatePrecision": 5,
   "outputType": "agency",
-  "includeStops": false,
+  "includeStops": true,
   "zipOutput": false
 }

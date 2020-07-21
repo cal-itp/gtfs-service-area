@@ -24,7 +24,12 @@ class Agency {
         this.routes = data["routes"];
         this.stops = data["stops"];
 
-        // figure out which service area calculations to use
+        // determine buffer radius
+        const bufferRadius = agency.bufferRadiusMeters || config.bufferRadiusMeters || 400;
+        // convert from meters -> kilometers
+        this.bufferRadius = (1.0 * bufferRadius) / 1000.0;
+
+        // determine service area calculation(s) to use
         const serviceAreas = agency.serviceAreas || config.serviceAreas || [];
         // map each into the corresponding implementation function
         this.serviceAreas = serviceAreas.map((sa) => {
@@ -32,6 +37,9 @@ class Agency {
         });
     }
 
+    /**
+     * Run each service area calculation for this Agency.
+     */
     computeServiceArea() {
         this.serviceAreas.forEach((serviceArea) => serviceArea.compute(this));
     }
