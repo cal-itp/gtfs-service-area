@@ -4,7 +4,7 @@ const convex = require("@turf/convex").default;
 const turf = require("@turf/helpers");
 
 const { Agency } = require("../agency");
-const { endpoint } = require("../routes");
+const { endpoint } = require("../geodata");
 const output = require("../output");
 
 /**

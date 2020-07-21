@@ -1,7 +1,7 @@
 "use strict";
 
 const output = require("./output");
-const routes = require("./routes");
+const geodata = require("./geodata");
 const implementations = require("./service-area");
 
 /**
@@ -17,10 +17,12 @@ class Agency {
         this.key = agency.agency_key;
         this.url = agency.url;
 
-        // first determine the data directory
+        // determine the data directory
         this.directory = output.directory(this);
-        // then load route data
-        this.routes = routes.load(this);
+        // load route and stop data
+        const data = geodata.load(this);
+        this.routes = data["routes"];
+        this.stops = data["stops"];
 
         // figure out which service area calculations to use
         const serviceAreas = agency.serviceAreas || config.serviceAreas || [];
