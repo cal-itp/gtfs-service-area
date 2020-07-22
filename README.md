@@ -43,7 +43,7 @@ docker-compose run pipeline
     npm install
     ```
 
-1. Edit `mongoUrl` in [`config.json`](config.json) with the URL of a [MongoDB](https://www.mongodb.com/) server.
+1. Edit `mongoUrl` in your configuration file with the URL of a [MongoDB](https://www.mongodb.com/) server.
 
 1. Run the generator:
 
@@ -146,7 +146,7 @@ In the above example:
 
 After a given agency's GTFS data has been been processed once, it is available for subsequent runs (e.g. adjusting parameters) without having to download and process again.
 
-Add the `skipImport` flag to your configuration file (*note* this flag is only available at the top-level and applies to all `agencies`):
+Add the `skipImport` flag to your configuration file (*note this flag is only available at the top-level and applies to all `agencies`*):
 
 ```json
 {
