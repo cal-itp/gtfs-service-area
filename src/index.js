@@ -3,16 +3,11 @@
 const { exit } = require("process");
 
 const gtfsToGeoJSON = require("gtfs-to-geojson");
-const mongoose = require("mongoose");
 
 const agencies = require("./agency");
 const loadConfig = require("./config");
 
 const config = loadConfig();
-
-// Mongo used by gtfsToGeoJSON
-// GTFS files read and loaded, and queried back out to produce GeoJSON
-mongoose.connect(config.mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Run gtfsToGeoJSON, which generates the output directory and the agency file
 gtfsToGeoJSON(config).then(() => {

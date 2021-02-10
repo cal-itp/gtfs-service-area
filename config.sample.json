@@ -15,7 +15,6 @@
       "bufferRadiusMeters": 1000
     }
   ],
-  "mongoUrl": "mongodb://mongo:27017",
   "serviceAreas": [
     "envelope",
     "convex",

@@ -2,6 +2,9 @@
 
 Compute a transit service area from static [GTFS](https://gtfs.org/reference/static). Results are output as single-layer `.geojson` files.
 
+**NOTE**: The functionality in this tool has been incorporated into the upstream [`gtfs-to-geojson`][gtfsgeojson]. This repo
+will be marked as read-only and no longer maintained in the near future.
+
 ## Examples
 
 The [`example`](example/) directory contains output using GTFS data from [Big Blue Bus][bbb] and [Monterey-Salinas Transit][mst], with settings from the [sample config file](config.sample.json) in this repository.
@@ -42,8 +45,6 @@ docker-compose run pipeline
     ```bash
     npm install
     ```
-
-1. Edit `mongoUrl` in your configuration file with the URL of a [MongoDB](https://www.mongodb.com/) server.
 
 1. Run the generator:
 
@@ -142,31 +143,9 @@ In the above example:
 * `agency1`: calculate a 400 meter buffer around stops, using the top-level `bufferSizeMeters`.
 * `agency2`: calculate a 750 meter buffer around stops, using the override `bufferSizeMeters`.
 
-### Caching GTFS Data
-
-After a given agency's GTFS data has been been processed once, it is available for subsequent runs (e.g. adjusting parameters) without having to download and process again.
-
-Add the `skipImport` flag to your configuration file (*note this flag is only available at the top-level and applies to all `agencies`*):
-
-```json
-{
-  "agencies": [
-    {
-      "agency_key": "agency1",
-      "url": "https://www.agency1.com/gtfs.zip",
-    },
-    {
-      "agency_key": "agency2",
-      "url": "https://www.agency2.com/gtfs.zip",
-    }
-  ],
-  "skipImport": true
-}
-```
-
 ## Additional Configuration
 
-The configuration data is passed through to [`gtfs-to-geojson`](https://github.com/BlinkTagInc/gtfs-to-geojson), and you may use any of the [supported options](https://github.com/BlinkTagInc/gtfs-to-geojson#configuration).
+The configuration data is passed through to [`gtfs-to-geojson`][gtfsgeojson], and you may use any of the [supported options](https://github.com/BlinkTagInc/gtfs-to-geojson#configuration).
 
 *Note that this project may override some options as necessary for calculating service areas.*
 
@@ -175,4 +154,5 @@ The configuration data is passed through to [`gtfs-to-geojson`](https://github.c
 [buffer]: http://wiki.gis.com/wiki/index.php/Buffer_(GIS)
 [convex]: http://wiki.gis.com/wiki/index.php/Convex_hull
 [dissolve]: http://wiki.gis.com/wiki/index.php/Dissolve
+[gtfsgeojson]: https://github.com/BlinkTagInc/gtfs-to-geojson
 [mst]: https://mst.org/about-mst/developer-resources/
