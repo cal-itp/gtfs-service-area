@@ -2,8 +2,7 @@
 
 Compute a transit service area from static [GTFS](https://gtfs.org/reference/static). Results are output as single-layer `.geojson` files.
 
-**NOTE**: The functionality in this tool has been incorporated into the upstream [`gtfs-to-geojson`][gtfsgeojson]. This repo
-will be marked as read-only and no longer maintained in the near future.
+**NOTE**: The functionality in this tool has been incorporated into the upstream [`gtfs-to-geojson`][gtfsgeojson]. This repo is now read-only and is no longer maintained.
 
 ## Examples
 
